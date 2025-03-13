@@ -58,7 +58,7 @@ document.head.appendChild(style);
 
 const container = document.querySelector('.ins-api-users');
 
-function checkLocalStorage() {
+const checkLocalStorage = () => {
     const stored = localStorage.getItem('users');
     const timestamp = localStorage.getItem('users_timestamp');
     
@@ -71,9 +71,9 @@ function checkLocalStorage() {
         }
     }
     return null;
-}
+};
 
-function displayUsers(users) {
+const displayUsers = (users) => {
     container.innerHTML = '';
     users.forEach(user => {
         const userCard = document.createElement('div');
@@ -88,21 +88,21 @@ function displayUsers(users) {
     });
 
     document.querySelectorAll('.delete-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const userId = parseInt(this.getAttribute('data-id'));
+        button.addEventListener('click', (e) => {
+            const userId = parseInt(e.target.getAttribute('data-id'));
             deleteUser(userId);
         });
     });
-}
+};
 
-function deleteUser(userId) {
+const deleteUser = (userId) => {
     let users = JSON.parse(localStorage.getItem('users'));
     users = users.filter(user => user.id !== userId);
     localStorage.setItem('users', JSON.stringify(users));
     displayUsers(users);
-}
+};
 
-async function initializeUsers() {
+const initializeUsers = async () => {
     try {
         const storedUsers = checkLocalStorage();
         
@@ -130,6 +130,6 @@ async function initializeUsers() {
             </div>
         `;
     }
-}
+};
 
 initializeUsers(); 
